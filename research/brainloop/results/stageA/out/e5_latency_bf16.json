@@ -1,0 +1,112 @@
+{
+ "device": {
+  "torch": "2.7.1+cu128",
+  "cuda_available": true,
+  "device": "NVIDIA GeForce RTX 5090",
+  "capability": "12.0",
+  "total_gb": 31.4,
+  "cuda": "12.8",
+  "sm_count": 170,
+  "is_rtx_5090": true
+ },
+ "dtype": "torch.bfloat16",
+ "results": {
+  "vae_encode_obs_3views": {
+   "n": 20,
+   "p50": 10.38654544390738,
+   "p95": 10.422021499834955,
+   "min": 10.37174230441451,
+   "mean": 10.390623984858394
+  },
+  "vit_prefix_3views": {
+   "n": 20,
+   "p50": 24.51393031515181,
+   "p95": 24.85978128388524,
+   "min": 24.44774005562067,
+   "mean": 24.579833052121103
+  },
+  "tokens": {
+   "video": 630,
+   "code": 536,
+   "vit_prefix": 210,
+   "prompt": 198,
+   "canvas": 128,
+   "action": 32
+  },
+  "joint_mot_step": {
+   "n": 20,
+   "p50": 151.23208262957633,
+   "p95": 154.60510186385363,
+   "min": 150.3101959824562,
+   "mean": 151.69574795290828
+  },
+  "lab_decode_eager_nis20_excl_encode": {
+   "n": 10,
+   "p50": 2961.5923073142767,
+   "p95": 2979.384723957628,
+   "min": 2949.444917961955,
+   "mean": 2963.439390482381
+  },
+  "model_decode_eager_nis20": {
+   "n": 10,
+   "p50": 3051.869262009859,
+   "p95": 3097.608268773183,
+   "min": 3009.171915240586,
+   "mean": 3052.0767622161657
+  },
+  "lab_decode_eager_nis6_excl_encode": {
+   "n": 10,
+   "p50": 900.5204860586673,
+   "p95": 908.5821289103478,
+   "min": 897.7425713092089,
+   "mean": 901.7661830410361
+  },
+  "model_decode_eager_nis6": {
+   "n": 10,
+   "p50": 945.5031449906528,
+   "p95": 960.6667436193675,
+   "min": 941.8136230669916,
+   "mean": 948.3374535571784
+  },
+  "lab_decode_eager_nis4_excl_encode": {
+   "n": 10,
+   "p50": 604.4961863663048,
+   "p95": 612.647069641389,
+   "min": 601.6365699470043,
+   "mean": 605.8590651955456
+  },
+  "model_decode_eager_nis4": {
+   "n": 10,
+   "p50": 647.9611140675843,
+   "p95": 653.206430724822,
+   "min": 644.6640137583017,
+   "mean": 647.8930303826928
+  },
+  "cache_tokens": 1166,
+  "cache_mb": 255.1,
+  "motor_eager_n1": {
+   "n": 20,
+   "p50": 49.370099790394306,
+   "p95": 49.901702045463026,
+   "min": 49.044427927583456,
+   "mean": 49.41963942255825
+  },
+  "motor_eager_n2": {
+   "n": 20,
+   "p50": 97.72222745232284,
+   "p95": 98.38868950027972,
+   "min": 97.23211312666535,
+   "mean": 97.80428032390773
+  },
+  "motor_eager_n4": {
+   "n": 20,
+   "p50": 195.0321071781218,
+   "p95": 196.2126842699945,
+   "min": 193.82984703406692,
+   "mean": 195.0773658696562
+  },
+  "fastjoint_error": "OutOfMemoryError('CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 31.35 GiB of which 1.50 MiB is free. Including non-PyTorch memory, this process has 31.34 GiB memory in use. Of the allocated memory 30.36 GiB is allocated by PyTorch, and 342.44 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)')",
+  "action_freqs_device": "cpu",
+  "motor_compile_error": "RuntimeError('CUDA error: out of memory\\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\\n')"
+ }
+}

@@ -1,0 +1,2 @@
+[{"name": "vast 5090 (Stage B, KR)", "kind": "vast", "instance": 57973893, "eta_utc": "17:20 (cap 18:00)"},
+ {"name": "stage B sweep", "kind": "progress", "progress": "results/stageB/out/progress.json", "eta_utc": "…"}]

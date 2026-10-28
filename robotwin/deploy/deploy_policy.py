@@ -219,7 +219,10 @@ class _CosmosTextEncoder:
             for bn, b in list(mod._buffers.items()):
                 if b is not None and b.is_meta:
                     mod._buffers[bn] = torch.zeros(b.shape, dtype=torch.float32)
-        self.qwen = qwen.to(device, dtype).eval()
+        # AGENTICWAM_TEXT_DEVICE=cpu keeps the 7B encoder in host memory and encodes there (one prompt per episode),
+        # leaving the policy GPU to the model and the simulator; embeddings still land on `device`.
+        self.text_device = os.environ.get("AGENTICWAM_TEXT_DEVICE") or device
+        self.qwen = qwen.to(self.text_device, dtype).eval()
         self.proc = AutoProcessor.from_pretrained("nvidia/Cosmos-Reason1-7B")
         self.device = device
         self.max_len = int(max_len)
@@ -248,13 +251,14 @@ class _CosmosTextEncoder:
         ids = self.proc.apply_chat_template(conv, tokenize=True, add_generation_prompt=False,
                                             max_length=self.max_len, truncation=True,
                                             padding="max_length")
-        ids = torch.as_tensor(ids, dtype=torch.long, device=self.device)
+        ids = torch.as_tensor(ids, dtype=torch.long, device=self.text_device if not self.offload else self.device)
         if ids.ndim == 2:
             ids = ids[0]
         ids = ids[:self.max_len].unsqueeze(0)
         hs = self.qwen(ids, output_hidden_states=True).hidden_states
         emb = torch.cat([(h - h.mean(-1, keepdim=True)) / (h.std(-1, keepdim=True) + 1e-8)
                          for h in hs[1:]], dim=-1).detach()          # [1,L,100352]
+        emb = emb.to(self.device)
         self._cache[prompt] = emb
         if self.offload:
             self.qwen.to("cpu")
@@ -819,6 +823,14 @@ def get_model(usr_args: Dict[str, Any]):
         logger.info("EEF64 adapter installed (action_space=eef64)")
     # The final episode has no following reset_model(), so flush it at interpreter exit.
     atexit.register(policy._flush_episode_results)
+    # research/brainloop execution modes (warm replans, motor tier, real-time latency); unset -> unchanged policy
+    _brainloop = os.environ.get("AGENTICWAM_BRAINLOOP")
+    if _brainloop:
+        if str(PROJECT_ROOT) not in sys.path:
+            sys.path.insert(0, str(PROJECT_ROOT))
+        from research.brainloop.lab import sim_policy
+        sim_policy.install(policy, json.loads(_brainloop))
+        logger.info("brainloop installed: %s", _brainloop)
     return policy
 
 

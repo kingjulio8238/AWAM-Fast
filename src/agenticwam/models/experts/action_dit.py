@@ -100,6 +100,17 @@ class ActionDiT(nn.Module):
 
         self.use_gradient_checkpointing = use_gradient_checkpointing
 
+    def _apply(self, fn, recurse=True):
+        # `freqs` is a complex RoPE table kept out of the buffers on purpose: Module.to(dtype=...) casts complex
+        # buffers to a real dtype and drops the rotation. As a plain attribute it never followed the module to the
+        # GPU, so every pre_dit copied it host->device and torch.compile skipped CUDA graphs ("cpu device").
+        # Follow the module's device here, never its dtype.
+        out = super()._apply(fn, recurse)
+        dev = next((p.device for p in self.parameters()), None)
+        if dev is not None and self.freqs.device != dev:
+            self.freqs = self.freqs.to(dev)
+        return out
+
     @classmethod
     def backbone_key_set(cls, keys) -> set[str]:
         return {

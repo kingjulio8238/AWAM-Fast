@@ -1,0 +1,1 @@
+{"job": "sweep DONE", "t_start": 1793114285.714167, "episodes_total": 6, "episodes_done": 6, "anchor": 77, "anchors": 77, "elapsed_s": 2346, "mot_steps": 26914, "ep_task": "hanging_mug", "ep_index": 0, "last_decode_s": 1.291, "mot_steps_base": 26914, "ts": 1793116632.7585905}

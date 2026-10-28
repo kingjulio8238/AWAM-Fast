@@ -1,0 +1,9 @@
+{
+ "n_train": 34,
+ "n_eval": 30,
+ "pos_rate_train": 0.6176470518112183,
+ "pos_rate_eval": 0.4000000059604645,
+ "auroc_train": 1.0,
+ "auroc_eval": 0.37962962962962965,
+ "thr_rad": 0.011
+}

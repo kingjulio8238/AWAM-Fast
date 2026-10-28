@@ -1,0 +1,43 @@
+{
+ "device": {
+  "torch": "2.7.1+cu128",
+  "cuda_available": true,
+  "device": "NVIDIA GeForce RTX 5090",
+  "capability": "12.0",
+  "total_gb": 31.4,
+  "cuda": "12.8",
+  "sm_count": 170,
+  "is_rtx_5090": true
+ },
+ "dtype": "torch.bfloat16",
+ "results": {
+  "motor_compiled_n1": {
+   "n": 20,
+   "p50": 4.44053701357916,
+   "p95": 4.721142665948719,
+   "min": 4.428104963153601,
+   "mean": 4.47644506348297
+  },
+  "motor_compiled_n2": {
+   "n": 20,
+   "p50": 8.58002743916586,
+   "p95": 8.590205275686458,
+   "min": 8.569473982788622,
+   "mean": 8.579449891112745
+  },
+  "motor_compiled_n4": {
+   "n": 20,
+   "p50": 16.878178517799824,
+   "p95": 17.188907274976373,
+   "min": 16.849878942593932,
+   "mean": 16.92344923503697
+  },
+  "action_freqs_device": "cuda:0",
+  "motor_compiled_first_call_s_n1": 26.72,
+  "motor_compiled_vs_eager_maxabs_n1": 0.01953125,
+  "motor_compiled_first_call_s_n2": 0.01,
+  "motor_compiled_vs_eager_maxabs_n2": 0.021484375,
+  "motor_compiled_first_call_s_n4": 0.02,
+  "motor_compiled_vs_eager_maxabs_n4": 0.015625
+ }
+}

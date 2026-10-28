@@ -1,0 +1,7 @@
+.git
+**/__pycache__
+runs/
+checkpoints/
+evaluate_results/
+*.pt
+*.mp4
